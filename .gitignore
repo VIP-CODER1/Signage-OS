@@ -12,12 +12,19 @@ dist/
 .vscode/
 .idea/
 
+# Claude
+.claude/
+
+# GitHub workflows
+.github/
+
 # Docker
 mongo_data/
 
 # OS
 .DS_Store
 Thumbs.db
+:Zone.Identifier
 
 # Test artifacts
 test_displays_upload.xlsx

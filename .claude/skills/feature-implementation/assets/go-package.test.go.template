@@ -1,7 +1,0 @@
-package {{PACKAGE_NAME}}
-
-import "testing"
-
-func TestPackageCompiles(t *testing.T) {
-	// TODO: real tests
-}

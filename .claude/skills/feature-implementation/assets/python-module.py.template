@@ -1,9 +1,0 @@
-"""{{MODULE_NAME}} — TODO: one-line purpose."""
-from __future__ import annotations
-
-
-class {{MODULE_CLASS}}:
-    """TODO: describe this class's responsibility."""
-
-    def __init__(self) -> None:
-        pass

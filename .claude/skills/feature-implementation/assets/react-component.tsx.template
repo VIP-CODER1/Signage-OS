@@ -1,9 +1,0 @@
-import { type FC } from "react";
-
-export interface {{COMPONENT_NAME}}Props {
-  // TODO: props
-}
-
-export const {{COMPONENT_NAME}}: FC<{{COMPONENT_NAME}}Props> = (props) => {
-  return <div data-testid="{{COMPONENT_NAME}}">TODO</div>;
-};
