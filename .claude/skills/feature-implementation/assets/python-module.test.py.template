@@ -1,0 +1,6 @@
+from {{MODULE_NAME}} import {{MODULE_CLASS}}
+
+
+def test_{{MODULE_NAME}}_instantiates():
+    obj = {{MODULE_CLASS}}()
+    assert obj is not None

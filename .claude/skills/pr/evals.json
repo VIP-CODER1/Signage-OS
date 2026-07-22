@@ -1,0 +1,20 @@
+{
+  "skill": "pr",
+  "should_trigger": [
+    "open a PR",
+    "create a pull request",
+    "ready for review",
+    "PR this",
+    "pull-request this",
+    "push this for review",
+    "ship this",
+    "open the PR"
+  ],
+  "should_not_trigger": [
+    "commit this",
+    "push to remote",
+    "review this PR",
+    "merge this PR",
+    "what's a pull request"
+  ]
+}

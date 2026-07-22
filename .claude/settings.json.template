@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash({{TEST_CMD}}:*)",
+      "Bash({{LINT_CMD}}:*)",
+      "Bash({{BUILD_CMD}}:*)",
+      "Bash(git diff:*)",
+      "Bash(git status)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git blame:*)",
+      "Read(**)",
+      "Grep(**)",
+      "Glob(**)"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(rm -fr:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git reset --hard:*)",
+      "Edit(.env)",
+      "Edit(.env.*)",
+      "Edit(**/secrets/**)",
+      "Edit(**/*.pem)",
+      "Edit(**/*.key)",
+      "Write(.env)",
+      "Write(.env.*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Edit|Write|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/file-guard.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/pre-write-lint.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/check-code-quality.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/post-write-test.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/create-checkpoint.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/session-summary.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/session-memory-bank.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/memory-bank-nudge.sh"
+          }
+        ]
+      }
+    ]
+  },
+  "env": {
+    "CLAUDE_SDLC_STACK": "{{STACK}}",
+    "CLAUDE_SDLC_TEST_CMD": "{{TEST_CMD}}",
+    "CLAUDE_SDLC_LINT_CMD": "{{LINT_CMD}}",
+    "CLAUDE_SDLC_BUILD_CMD": "{{BUILD_CMD}}",
+    "CLAUDE_SDLC_MEMORY_NUDGE": "1"
+  }
+}

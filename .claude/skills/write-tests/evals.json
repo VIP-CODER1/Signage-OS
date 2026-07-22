@@ -1,0 +1,21 @@
+{
+  "skill": "write-tests",
+  "should_trigger": [
+    "write tests for this function",
+    "add test coverage for the payment service",
+    "I need test cases for the new endpoint",
+    "TDD this feature with me",
+    "cover this edge case with a test",
+    "make sure this is tested before we ship",
+    "add a regression test for the bug we just fixed",
+    "improve test coverage in /src/auth",
+    "can you test the error paths here"
+  ],
+  "should_not_trigger": [
+    "how does testing work in general",
+    "explain TDD",
+    "review my existing tests",
+    "debug this failing test",
+    "what testing framework should I use"
+  ]
+}

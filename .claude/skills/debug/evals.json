@@ -1,0 +1,22 @@
+{
+  "skill": "debug",
+  "should_trigger": [
+    "this test is failing",
+    "I'm getting a TypeError, can you figure out what's wrong",
+    "the API returns 500 intermittently",
+    "this used to work yesterday",
+    "why is the login flow crashing",
+    "something's broken in checkout",
+    "the deploy is hanging",
+    "tests pass locally but fail in CI",
+    "here's the stack trace: ...",
+    "it's not working when I click submit"
+  ],
+  "should_not_trigger": [
+    "how do debuggers work in general",
+    "what's the best way to learn debugging",
+    "review this PR",
+    "write me a new endpoint",
+    "explain the architecture"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "skill": "dependency-upgrade",
+  "should_trigger": [
+    "upgrade react to 19",
+    "bump the TypeScript version",
+    "update next to latest",
+    "migrate us from node 18 to 20",
+    "what's our dep drift",
+    "upgrade the app to Django 5",
+    "get us to latest express",
+    "let's bump all the deps"
+  ],
+  "should_not_trigger": [
+    "install a new package",
+    "what deps do we have",
+    "review this PR",
+    "debug this test",
+    "what's the latest version of X"
+  ]
+}

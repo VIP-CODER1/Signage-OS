@@ -1,0 +1,20 @@
+{
+  "skill": "checkpoint",
+  "should_trigger": [
+    "create a checkpoint",
+    "snapshot this",
+    "save my work before I try something risky",
+    "roll back",
+    "undo the last 10 minutes",
+    "restore the checkpoint from before the refactor",
+    "list checkpoints",
+    "show me the stash snapshots"
+  ],
+  "should_not_trigger": [
+    "commit this",
+    "open a PR",
+    "git stash show",
+    "what's a git stash",
+    "review this PR"
+  ]
+}
