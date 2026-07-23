@@ -1,6 +1,12 @@
-# Digital Signage Display Management System
+# Signage-OS : Digital Signage Display Management System
 
 A full-stack web application for managing digital signage displays with bulk upload via Excel.
+
+<img width="1915" height="870" alt="image" src="https://github.com/user-attachments/assets/22ce0d98-cfb1-48eb-9347-4ac674d5be07" />
+
+<img width="1917" height="876" alt="Screenshot 2026-07-23 025003" src="https://github.com/user-attachments/assets/8f3f196a-296c-4284-95ca-e0567991c822" />
+
+
 
 ## Tech Stack
 
