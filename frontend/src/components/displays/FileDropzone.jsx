@@ -9,11 +9,17 @@ export default function FileDropzone({ selectedFile, onFileSelect, error }) {
   const isDark = theme.palette.mode === 'dark';
 
   const handleFile = (file) => {
-    if (file && file.name.endsWith('.xlsx')) {
-      onFileSelect(file);
-    } else {
+    if (!file) return;
+    if (!file.name.endsWith('.xlsx')) {
       onFileSelect(null, 'Please select a .xlsx file');
+      return;
     }
+    const MAX_SIZE = 10 * 1024 * 1024;
+    if (file.size > MAX_SIZE) {
+      onFileSelect(null, 'File too large. Maximum size is 10 MB.');
+      return;
+    }
+    onFileSelect(file);
   };
 
   const handleDrop = (e) => {

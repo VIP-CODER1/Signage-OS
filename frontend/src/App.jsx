@@ -5,7 +5,6 @@ import ProtectedRoute from './components/common/ProtectedRoute';
 import DashboardLayout from './components/layout/DashboardLayout';
 
 const LoginPage = lazy(() => import('./pages/LoginPage'));
-const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 const DisplaysPage = lazy(() => import('./pages/DisplaysPage'));
 const DisplayDetailPage = lazy(() => import('./pages/DisplayDetailPage'));
 const BulkUploadPage = lazy(() => import('./pages/BulkUploadPage'));
@@ -31,7 +30,7 @@ export default function App() {
     <Suspense fallback={<SuspenseFallback />}>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/" element={<ProtectedLayout><DashboardPage /></ProtectedLayout>} />
+        <Route path="/" element={<Navigate to="/displays" replace />} />
         <Route path="/displays" element={<ProtectedLayout><DisplaysPage /></ProtectedLayout>} />
         <Route path="/displays/:id" element={<ProtectedLayout><DisplayDetailPage /></ProtectedLayout>} />
         <Route path="/displays/upload" element={<ProtectedLayout><BulkUploadPage /></ProtectedLayout>} />

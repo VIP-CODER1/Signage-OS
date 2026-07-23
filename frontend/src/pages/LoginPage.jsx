@@ -23,7 +23,7 @@ export default function LoginPage() {
   const [localError, setLocalError] = useState(null);
 
   useEffect(() => {
-    if (isAuthenticated) navigate('/', { replace: true });
+    if (isAuthenticated) navigate('/displays', { replace: true });
   }, [isAuthenticated, navigate]);
 
   useEffect(() => { dispatch(clearAuthError()); }, [dispatch]);

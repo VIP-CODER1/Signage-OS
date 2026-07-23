@@ -5,7 +5,7 @@ import {
   LinearProgress, Alert, Stack, useTheme,
 } from '@mui/material';
 import { Download, CloudUpload, CheckCircle, Description } from '@mui/icons-material';
-import { validateExcelFile, commitBulkUpload, downloadTemplate, clearUploadState } from '../redux/slices/uploadSlice';
+import { validateExcelFile, commitBulkUpload, downloadTemplate, downloadFailedRows, clearUploadState } from '../redux/slices/uploadSlice';
 import FileDropzone from '../components/displays/FileDropzone';
 import UploadPreviewTable from '../components/displays/UploadPreviewTable';
 import UploadSummaryPanel from '../components/displays/UploadSummaryPanel';
@@ -58,6 +58,7 @@ export default function BulkUploadPage() {
   const [activeStep, setActiveStep] = useState(0);
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileError, setFileError] = useState(null);
+  const [isDownloadingFailed, setIsDownloadingFailed] = useState(false);
 
   const handleDownload = () => {
     dispatch(downloadTemplate());
@@ -84,6 +85,17 @@ export default function BulkUploadPage() {
     const validRows = previewData.filter(r => r.is_valid).map(r => r.data);
     dispatch(commitBulkUpload(validRows));
     setActiveStep(3);
+  };
+
+  const handleDownloadFailedRows = async () => {
+    setIsDownloadingFailed(true);
+    const failedRows = previewData.filter(r => !r.is_valid).map(r => ({
+      row_number: r.row_number,
+      data: r.data,
+      errors: r.errors,
+    }));
+    await dispatch(downloadFailedRows(failedRows));
+    setIsDownloadingFailed(false);
   };
 
   const handleReset = () => {
@@ -173,9 +185,11 @@ export default function BulkUploadPage() {
               <UploadSummaryPanel
                 summary={validationSummary}
                 onCommit={handleCommit}
+                onDownloadFailed={handleDownloadFailedRows}
                 isCommitting={isCommitting}
                 hasValidRows={validCount > 0}
                 failedCount={failedCount}
+                isDownloading={isDownloadingFailed}
               />
             )}
 

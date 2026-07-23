@@ -14,7 +14,7 @@ from app.services.display_service import (
     get_display_by_id, update_display, delete_display,
 )
 from app.services.display_formatter import format_display_response
-from app.services.excel_template import generate_template
+from app.services.excel_template import generate_template, generate_failed_rows_excel
 from app.services.excel_parser import validate_excel, commit_validated_rows, ExcelParseError
 from app.core.exceptions import DuplicateDisplayIdError
 
@@ -91,6 +91,19 @@ async def commit_bulk_upload(
         return result
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
+
+@router.post("/bulk-upload/failed-rows")
+async def download_failed_rows(
+    request: CommitRequest,
+    _admin: Admin = Depends(get_current_admin),
+):
+    buffer = generate_failed_rows_excel(request.rows)
+    return StreamingResponse(
+        buffer,
+        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        headers={"Content-Disposition": "attachment; filename=failed_rows.xlsx"},
+    )
 
 
 @router.get("/{id}", response_model=DisplayResponse)

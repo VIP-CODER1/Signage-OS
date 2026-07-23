@@ -61,6 +61,26 @@ export const downloadTemplate = createAsyncThunk(
   }
 );
 
+export const downloadFailedRows = createAsyncThunk(
+  'upload/downloadFailedRows',
+  async (failedRows, { rejectWithValue }) => {
+    try {
+      const response = await api.post('/api/displays/bulk-upload/failed-rows', {
+        rows: failedRows,
+      }, { responseType: 'blob' });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'failed_rows.xlsx';
+      link.click();
+      URL.revokeObjectURL(url);
+      return true;
+    } catch (err) {
+      return rejectWithValue('Failed to download failed rows');
+    }
+  }
+);
+
 const uploadSlice = createSlice({
   name: 'upload',
   initialState,

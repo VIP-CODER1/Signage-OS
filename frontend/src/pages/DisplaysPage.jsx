@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Button, Stack, TablePagination, Select, MenuItem, FormControl, InputLabel, Card, CardContent, Typography, useTheme } from '@mui/material';
 import { Add, Devices, Tv, CheckCircle, Warning } from '@mui/icons-material';
@@ -16,6 +16,8 @@ import EmptyState from '../components/common/EmptyState';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import StatCard from '../components/common/StatCard';
 import AppHeader from '../components/layout/AppHeader';
+import GlobeMap from '../components/dashboard/GlobeMap';
+import DisplayStatusDonutChart from '../components/dashboard/DisplayStatusDonutChart';
 import { useNotification } from '../components/common/NotificationProvider';
 
 const STATUS_OPTIONS = ['', 'ACTIVE', 'INACTIVE', 'MAINTENANCE'];
@@ -68,59 +70,6 @@ function GlassCard({ children, delay = 0, sx, ...props }) {
   );
 }
 
-function AnimatedBar({ label, value, total, color, delay }) {
-  const ref = useRef(null);
-  const [width, setWidth] = useState(0);
-  const theme = useTheme();
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setWidth(total > 0 ? (value / total) * 100 : 0);
-    }, delay * 1000 + 200);
-    return () => clearTimeout(timer);
-  }, [value, total, delay]);
-
-  return (
-    <Box sx={{ mb: 2.5 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.75, px: 0.5 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Box sx={{ width: 10, height: 10, borderRadius: '2px', bgcolor: color }} />
-          <Typography variant="body2" sx={{ fontWeight: 500, color: 'text.secondary' }}>{label}</Typography>
-        </Box>
-        <Typography variant="body2" fontWeight={700}>{value}</Typography>
-      </Box>
-      <Box
-        sx={{
-          height: 8,
-          borderRadius: 4,
-          bgcolor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.04)',
-          overflow: 'hidden',
-          position: 'relative',
-        }}
-      >
-        <Box
-          sx={{
-            height: '100%',
-            borderRadius: 4,
-            width: `${width}%`,
-            background: `linear-gradient(90deg, ${color}, ${color}cc)`,
-            transition: 'width 1s cubic-bezier(0.34, 1.56, 0.64, 1)',
-            boxShadow: `0 0 12px ${color}66`,
-            position: 'relative',
-            '&::after': {
-              content: '""',
-              position: 'absolute',
-              inset: 0,
-              background: `linear-gradient(90deg, transparent, ${color}33, transparent)`,
-              animation: 'shimmer 2s ease-in-out infinite',
-            },
-          }}
-        />
-      </Box>
-    </Box>
-  );
-}
-
 export default function DisplaysPage() {
   const dispatch = useDispatch();
   const notify = useNotification();
@@ -152,12 +101,6 @@ export default function DisplaysPage() {
     const maintenance = items.filter((d) => d.status === 'MAINTENANCE').length;
     return { total: items.length, active, inactive, maintenance };
   }, [items]);
-
-  const barData = useMemo(() => [
-    { label: 'Active', value: stats.active, color: '#22c55e' },
-    { label: 'Maintenance', value: stats.maintenance, color: '#f59e0b' },
-    { label: 'Inactive', value: stats.inactive, color: '#ef4444' },
-  ], [stats]);
 
   const handleSearch = useCallback((q) => dispatch(setSearchQuery(q)), [dispatch]);
   const handleStatusFilter = useCallback((s) => dispatch(setStatusFilter(s)), [dispatch]);
@@ -236,25 +179,18 @@ export default function DisplaysPage() {
             <StatCard icon={<Devices />} label="Inactive" value={stats.inactive} color="error" subtext="Offline displays" delay={0.15} />
           </Grid>
 
-          <Grid item xs={12}>
-            <GlassCard delay={0.2}>
-              <CardContent sx={{ px: 3.5, py: 3, '&:last-child': { pb: 3 } }}>
-                <Typography variant="subtitle2" sx={{ mb: 3 }}>Live Status Breakdown</Typography>
-                <Grid container spacing={4} alignItems="flex-end">
-                  {barData.map((item, i) => (
-                    <Grid item xs={12} sm={4} key={item.label}>
-                      <AnimatedBar
-                        label={item.label}
-                        value={item.value}
-                        total={stats.total}
-                        color={item.color}
-                        delay={i * 0.15}
-                      />
-                    </Grid>
-                  ))}
-                </Grid>
-              </CardContent>
-            </GlassCard>
+          <Grid item xs={12} md={6}>
+            <DisplayStatusDonutChart
+              data={[
+                { value: stats.active, label: 'Active', color: '#22c55e' },
+                { value: stats.maintenance, label: 'Maintenance', color: '#f59e0b' },
+                { value: stats.inactive, label: 'Inactive', color: '#ef4444' },
+              ]}
+              total={stats.total}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <GlobeMap delay={0.2} />
           </Grid>
         </Grid>
       )}

@@ -5,7 +5,7 @@ import {
   Box, Divider, Typography, Avatar, useTheme,
 } from '@mui/material';
 import {
-  Devices, Upload, Logout, Tv, Dashboard,
+  Devices, Upload, Logout, Tv,
 } from '@mui/icons-material';
 import { logoutAdmin } from '../../redux/slices/authSlice';
 import AIPanel from './AIPanel';
@@ -13,7 +13,6 @@ import AIPanel from './AIPanel';
 const DRAWER_WIDTH = 240;
 
 const NAV_ITEMS = [
-  { path: '/dashboard', label: 'Dashboard', icon: <Dashboard /> },
   { path: '/displays', label: 'Displays', icon: <Devices /> },
   { path: '/displays/upload', label: 'Bulk Upload', icon: <Upload /> },
 ];
