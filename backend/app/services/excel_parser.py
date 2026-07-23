@@ -162,8 +162,8 @@ async def validate_excel(file_content: bytes, filename: str) -> dict:
 
 
 async def bulk_resolve_content_profiles(all_names: Set[str]) -> Dict[str, ContentProfile]:
-    existing = await ContentProfile.find_many(
-        ContentProfile.name.in_(list(all_names))
+    existing = await ContentProfile.find(
+        {"name": {"$in": list(all_names)}}
     ).to_list()
     result = {p.name: p for p in existing}
     for name in all_names:
