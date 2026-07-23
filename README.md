@@ -2,8 +2,6 @@
 
 A full-stack web application for managing digital signage displays with bulk upload via Excel. Built with FastAPI + MongoDB + React.
 
-<img width="1915" alt="Dashboard" src="https://github.com/user-attachments/assets/22ce0d98-cfb1-48eb-9347-4ac674d5be07" />
-<img width="1917" alt="Displays" src="https://github.com/user-attachments/assets/8f3f196a-296c-4284-95ca-e0567991c822" />
 
 <img width="1915" height="870" alt="image" src="https://github.com/user-attachments/assets/22ce0d98-cfb1-48eb-9347-4ac674d5be07" />
 
@@ -327,7 +325,7 @@ The production stack includes:
 
 ## Documentation
 
-- [Technical Documentation](./docs/technical_new.md) — Full architecture, API spec, DB design
+- [Technical Documentation](./docs/technical_new.md) — Link : https://drive.google.com/file/d/1wvl3AqTsNBi5IIKha75CPtwZTgrMitYh/view?usp=sharing Full architecture, API spec, DB design
 - [PlantUML Diagrams](./docs/diagrams_plantuml.md) — Source code for all architecture diagrams
 - [Phase Docs](./docs/) — Step-by-step implementation guides (Phase 0–11)
 
