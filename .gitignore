@@ -31,3 +31,6 @@ test_displays_upload.xlsx
 
 # Logs
 *.log
+
+# Project specific
+ui-patterns-reference.md
