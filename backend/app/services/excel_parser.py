@@ -129,13 +129,6 @@ async def validate_excel(file_content: bytes, filename: str) -> dict:
         cp_list = []
         if cp_val:
             cp_list = [p.strip() for p in cp_val.split(",") if p.strip()]
-            for profile_name in cp_list:
-                exists = await ContentProfile.find_one(ContentProfile.name == profile_name)
-                if not exists:
-                    errors.append(ValidationErrorItem(
-                        field="content_profiles",
-                        message=f"Content profile '{profile_name}' will be auto-created but has warning flag",
-                    ))
         data["content_profiles"] = cp_list
 
         is_valid = len(errors) == 0

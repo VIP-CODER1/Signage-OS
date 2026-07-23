@@ -12,7 +12,7 @@ class TestAuthAPI:
         ).insert()
 
         response = await async_client.post("/api/auth/login", json={
-            "username": "admin@test.com",
+            "email": "admin@test.com",
             "password": "CorrectPass123",
         })
         assert response.status_code == 200
@@ -29,7 +29,7 @@ class TestAuthAPI:
         ).insert()
 
         response = await async_client.post("/api/auth/login", json={
-            "username": "admin@test.com",
+            "email": "admin@test.com",
             "password": "WrongPassword",
         })
         assert response.status_code == 401
@@ -38,7 +38,7 @@ class TestAuthAPI:
     @pytest.mark.asyncio
     async def test_login_wrong_username(self, async_client):
         response = await async_client.post("/api/auth/login", json={
-            "username": "ghost@test.com",
+            "email": "ghost@test.com",
             "password": "AnyPass123",
         })
         assert response.status_code == 401

@@ -83,7 +83,7 @@ class TestDisplaysAPI:
     @pytest.mark.asyncio
     async def test_protected_endpoint_without_token(self, async_client):
         response = await async_client.get("/api/displays")
-        assert response.status_code == 401
+        assert response.status_code == 403
 
     @pytest.mark.asyncio
     async def test_search_and_filter(self, async_client, auth_headers, sample_display):
